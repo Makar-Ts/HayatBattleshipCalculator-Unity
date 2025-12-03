@@ -16,8 +16,6 @@ namespace HayatBattleshipCalculator
             stepTime = step;
             _straightTime = stepTime - fade * 2;
             _fadeTime = fade;
-
-            Debug.Log(string.Format("{0} {1} {2}", stepTime, _straightTime, _fadeTime));
         }
 
 

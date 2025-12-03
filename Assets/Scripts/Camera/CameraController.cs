@@ -1,4 +1,5 @@
 using System;
+using System.Security.Cryptography;
 using UnityEngine;
 
 
@@ -41,10 +42,62 @@ public class CameraController : MonoBehaviour {
             Input.GetAxis("Vertical")   + (isLocked ? Input.GetAxis("Mouse Y") : 0)
         );
 
-        transform.Translate(inp * moveSpeed * (camera.orthographicSize * scrollToMoveSpeed) * Time.deltaTime);
+        Vector3 movement = camera.orthographicSize * scrollToMoveSpeed * moveSpeed * Time.deltaTime * inp;
+
+        transform.Translate(movement);
 
 
         targetZoom = Mathf.Clamp(targetZoom + Input.GetAxis("Mouse ScrollWheel") * scrollSpeed, minZoom, maxZoom);
         camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, targetZoom, scrollSmoothness);
+
+
+        if (targetPosition != null)
+        {
+            if (movement.magnitude > 0)
+            {
+                targetPosition = null;
+                return;
+            }
+
+            transform.position = Vector3.Lerp(
+                transform.position,
+                new Vector3(
+                    targetPosition?.x ?? 0, 
+                    targetPosition?.y ?? 0,
+                    transform.position.z
+                ),
+                0.05f
+            );
+        } 
+    }
+
+
+    public Vector3? targetPosition
+    {
+        get { return _targetPosition ?? _target?.position ?? null; }
+        set
+        {
+            if (value == null)
+            {
+                _targetPosition = null;
+                _target = null;
+            }
+            else
+            {
+                _targetPosition = value;
+            }
+        }
+    }
+
+    private Vector3? _targetPosition = null;
+    private Transform? _target = null;
+    public void Relocate(Vector3 pos)
+    {
+        _targetPosition = pos;
+    }
+
+    public void Relocate(Transform target)
+    {
+        _target = target;
     }
 }

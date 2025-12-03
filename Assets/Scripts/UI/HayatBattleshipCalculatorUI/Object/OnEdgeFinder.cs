@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using HayatBattleshipCalculator;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace HayatBattleshipCalculatorUI
 {
@@ -36,6 +37,8 @@ namespace HayatBattleshipCalculatorUI
                 return;
             }
 
+            if (go.TryGetComponent<OnEdgeFinderGo>(out var cl))
+                cl.onClick.AddListener(OnFinderClicked);
             _finders[id] = rt;
         }
 
@@ -45,10 +48,27 @@ namespace HayatBattleshipCalculatorUI
             if (!_finders.TryGetValue(id, out var rt))
                 return;
 
+            if (rt.TryGetComponent<OnEdgeFinderGo>(out var cl))
+                cl.onClick.RemoveAllListeners();
+
             if (rt != null)
                 Destroy(rt.gameObject);
 
             _finders.Remove(id);
+        }
+
+
+        private void OnFinderClicked(string id)
+        {
+            Camera cam = uiCamera != null ? uiCamera : Camera.main;
+            if (cam == null)
+                return;
+            
+            if (
+                HayatBattleshipCalculator.Object.Objects.TryGetValue(id, out var obj) &&
+                cam.TryGetComponent<CameraController>(out var controller)
+            )
+                controller.Relocate(obj.transform);
         }
 
 
