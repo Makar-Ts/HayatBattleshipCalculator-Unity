@@ -1,9 +1,22 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Window : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    private string _title;
+    public string Title
+    {
+        get { return _title; }
+        set
+        {
+            _title = value;
+
+            if (titleTexarea != null) titleTexarea.text = _title;
+        }
+    }
+    public TMP_Text titleTexarea;
     public RectTransform header;
     public RectTransform content;
 
@@ -14,9 +27,14 @@ public class Window : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         windowRectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
-        if (canvas == null)
+        
+        if (titleTexarea.text.Length != 0)
         {
-            Debug.LogError("DraggableWindow must be inside a Canvas.");
+            Title = titleTexarea.text;
+        }
+        else
+        {
+            Title = RandomStringGenerator.GenerateRandomString(7);
         }
     }
 
@@ -24,7 +42,7 @@ public class Window : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private Boolean isDragging = false;
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (eventData.pointerEnter == header.gameObject)
+        if (eventData.pointerEnter == header.gameObject || eventData.pointerEnter == titleTexarea.gameObject)
         {
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
                     windowRectTransform,

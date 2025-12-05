@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using Extensions;
 using HayatBattleshipCalculator;
 
 namespace HayatBattleshipCalculatorUI
@@ -13,22 +12,13 @@ namespace HayatBattleshipCalculatorUI
 
         void Update()
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red);
-
-
-            var sim = GameObject.FindGameObjectWithTag(SimulationController.TAG).GetComponent<SimulationController>().Simulation;
-
-
-            if (sim != null && (sim?.Raycast(ray.origin, ray.direction, out var hit, 100, LayerMask.GetMask("Object")) ?? false))
+            if (CursorOnTargetDetector.CurrentTargetID == null)
+                text.text = "<align=\"center\">-- No Target --";
+            else
             {
-                Debug.Log("HIT: " + hit.transform.name);
-                var obj = hit.transform.gameObject.FindNearestParentWithTag("Object");
-                Debug.Log(obj);
-                ObjectInfoCollector info;
-
+                var obj = HayatBattleshipCalculator.Object.Objects[CursorOnTargetDetector.CurrentTargetID];
                 if (obj == null ||
-                    !obj.TryGetComponent<ObjectInfoCollector>(out info))
+                    !obj.TryGetComponent<ObjectInfoCollector>(out var info))
                 {
                     text.text = "<align=\"center\">-- No Target --";
                     return;
@@ -41,10 +31,6 @@ namespace HayatBattleshipCalculatorUI
                 }
 
                 text.text = t;
-            }
-            else
-            {
-                text.text = "<align=\"center\">-- No Target --";
             }
         }
     }

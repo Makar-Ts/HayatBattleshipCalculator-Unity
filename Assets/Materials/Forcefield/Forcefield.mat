@@ -54,7 +54,7 @@ Material:
     - _A: 0
     - _B: 0
     - _Corner: 1.2
-    - _DistortionsDivider: 0.01
+    - _DistortionsDivider: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Radius: 4.8
@@ -63,8 +63,11 @@ Material:
     - _RadiusOuter: 1
     - _Spin: 2
     m_Colors:
-    - _Color: {r: 0, g: 6019.382, b: 6135.969, a: 0}
-    - _Distortions: {r: -0.72, g: 0.7, b: 0, a: 0}
+    - _Color: {r: 0, g: 376.21136, b: 383.49808, a: 0}
+    - _Distortions: {r: 0.4, g: 2.15, b: 0, a: 0}
+    - _DistortionsRingMultiplier: {r: -0.13, g: 1, b: 0, a: 0}
+    - _Distortions_1: {r: -0.11, g: 1, b: 0, a: 0}
     - _Speed: {r: 1, g: -0.26, b: 0, a: 0}
+    - _SpinRange: {r: -2, g: 2, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

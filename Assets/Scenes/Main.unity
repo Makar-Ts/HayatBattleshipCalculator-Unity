@@ -1355,9 +1355,17 @@ PrefabInstance:
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 1950352033}
+    - target: {fileID: 6154666079071252724, guid: e28c6ad1a9373804c8e378f803b93dfe, type: 3}
+      propertyPath: m_text
+      value: Target
+      objectReference: {fileID: 0}
+    - target: {fileID: 6154666079071252724, guid: e28c6ad1a9373804c8e378f803b93dfe, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 34
+      objectReference: {fileID: 0}
     - target: {fileID: 7645207947659519486, guid: e28c6ad1a9373804c8e378f803b93dfe, type: 3}
       propertyPath: m_Name
-      value: InfoPanel
+      value: Target
       objectReference: {fileID: 0}
     - target: {fileID: 8633183835170542977, guid: e28c6ad1a9373804c8e378f803b93dfe, type: 3}
       propertyPath: m_TargetGraphic
@@ -1907,6 +1915,7 @@ GameObject:
   - component: {fileID: 3990456475099840493}
   - component: {fileID: 4521824655831397406}
   - component: {fileID: 2097194421467386406}
+  - component: {fileID: 5065241669410943444}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1914,6 +1923,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5065241669410943444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5065241669410943443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 762eaddd6a4351d4d8a624b2a27c3f87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5196244904204241109
 GameObject:
   m_ObjectHideFlags: 0
