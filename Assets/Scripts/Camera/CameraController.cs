@@ -8,9 +8,12 @@ public class CameraController : MonoBehaviour {
     public float moveSpeed = 1;
 
     public float scrollSpeed = 1;
+    public Boolean reverseScroll = true;
     public float scrollSmoothness = 0.03f;
     [SerializeField]
     private float scrollToMoveSpeed = 1;
+    [SerializeField]
+    private float zoomToScrollSpeedPow = 2;
 
 
     [SerializeField]
@@ -38,7 +41,7 @@ public class CameraController : MonoBehaviour {
         }
 
         Vector2 inp = new Vector2(
-            Input.GetAxis("Horizontal") + (isLocked ? Input.GetAxis("Mouse X") : 0), 
+            Input.GetAxis("Horizontal") + (isLocked ? Input.GetAxis("Mouse X") : 0),
             Input.GetAxis("Vertical")   + (isLocked ? Input.GetAxis("Mouse Y") : 0)
         );
 
@@ -47,8 +50,30 @@ public class CameraController : MonoBehaviour {
         transform.Translate(movement);
 
 
-        targetZoom = Mathf.Clamp(targetZoom + Input.GetAxis("Mouse ScrollWheel") * scrollSpeed, minZoom, maxZoom);
+        Vector3 mouseWorldBefore = camera.ScreenToWorldPoint(Input.mousePosition);
+
+
+        targetZoom = Mathf.Clamp(
+            targetZoom
+            + Input.GetAxis("Mouse ScrollWheel")
+            * (reverseScroll ? -1 : 1)
+            * Mathf.Pow(
+                scrollSpeed,
+                Mathf.Clamp01(
+                    (targetZoom - minZoom)
+                    /
+                    (maxZoom - minZoom)
+                ) * (zoomToScrollSpeedPow - 1) + 1),
+            minZoom,
+            maxZoom
+        );
+
+        float oldSize = camera.orthographicSize;
         camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, targetZoom, scrollSmoothness);
+
+
+        Vector3 mouseWorldAfter = camera.ScreenToWorldPoint(Input.mousePosition);
+        transform.position += mouseWorldBefore - mouseWorldAfter;
 
 
         if (targetPosition != null)
@@ -62,13 +87,13 @@ public class CameraController : MonoBehaviour {
             transform.position = Vector3.Lerp(
                 transform.position,
                 new Vector3(
-                    targetPosition?.x ?? 0, 
+                    targetPosition?.x ?? 0,
                     targetPosition?.y ?? 0,
                     transform.position.z
                 ),
                 0.05f
             );
-        } 
+        }
     }
 
 
