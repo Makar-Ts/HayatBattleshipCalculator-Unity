@@ -80,6 +80,15 @@ namespace HayatBattleshipCalculatorUI
         }
 
 
+        public void SetLockedTarget(string id)
+        {
+            lockTarget = true;
+            lastTargetId = id;
+            CurrentTargetID = id;
+            TargetLocked.Invoke(lastTargetId);
+        }
+
+
         private string HandleHit(RaycastHit hit) => HandleObject(hit.transform.gameObject.FindNearestParentWithTag("Object"));
 
         private string HandleObject(GameObject obj)

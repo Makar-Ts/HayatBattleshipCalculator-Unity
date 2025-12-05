@@ -47,7 +47,10 @@ namespace HayatBattleshipCalculatorUI
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            onClick.Invoke(gameObject.name);
+            if (eventData.button == PointerEventData.InputButton.Left)
+                onClick.Invoke(gameObject.name);
+            else if (eventData.button == PointerEventData.InputButton.Right)
+                Camera.main.GetComponent<CursorOnTargetDetector>().SetLockedTarget(gameObject.name);
         }
     }
 }

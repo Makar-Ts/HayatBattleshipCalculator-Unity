@@ -2442,7 +2442,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -202.95859, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2532,7 +2532,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   zoomToScrollSpeedPowMax: 2
-  maxZoom: 500
+  maxZoom: 4000
   minZoom: 2
 --- !u!4 &2157728507330669721
 Transform:
@@ -3175,13 +3175,23 @@ MonoBehaviour:
     split: 0.005
     offset: {x: 0, y: 0, z: 0}
     baseColor: {r: 0.22745098, g: 0.19215687, b: 0.19215687, a: 1}
-  - maxOrtho: 350
+  - maxOrtho: 284
     repeat: 0.05
     split: 0.005
     offset: {x: 0, y: 0, z: 0}
     baseColor: {r: 0.22745098, g: 0.19215687, b: 0.19215687, a: 1}
   - maxOrtho: 350
-    repeat: 0.05
+    repeat: 0.025
+    split: 0.005
+    offset: {x: 0, y: 0, z: 0}
+    baseColor: {r: 0.22745098, g: 0.19215687, b: 0.19215687, a: 1}
+  - maxOrtho: 580
+    repeat: 0.0125
+    split: 0.005
+    offset: {x: 0, y: 0, z: 0}
+    baseColor: {r: 0.22745098, g: 0.19215687, b: 0.19215687, a: 1}
+  - maxOrtho: 1200
+    repeat: 0.003125
     split: 0.005
     offset: {x: 0, y: 0, z: 0}
     baseColor: {r: 0.22745098, g: 0.19215687, b: 0.19215687, a: 1}
