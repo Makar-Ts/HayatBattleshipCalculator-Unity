@@ -13,7 +13,9 @@ public class CameraController : MonoBehaviour {
     [SerializeField]
     private float scrollToMoveSpeed = 1;
     [SerializeField]
-    private float zoomToScrollSpeedPow = 2;
+    private AnimationCurve zoomToScrollSpeedPow = AnimationCurve.Linear(0, 1, 1, 3);
+    [SerializeField]
+    private float zoomToScrollSpeedPowMax = 3;
 
 
     [SerializeField]
@@ -59,11 +61,11 @@ public class CameraController : MonoBehaviour {
             * (reverseScroll ? -1 : 1)
             * Mathf.Pow(
                 scrollSpeed,
-                Mathf.Clamp01(
+                zoomToScrollSpeedPow.Evaluate(Mathf.Clamp01(
                     (targetZoom - minZoom)
                     /
                     (maxZoom - minZoom)
-                ) * (zoomToScrollSpeedPow - 1) + 1),
+                )) * zoomToScrollSpeedPowMax + 1),
             minZoom,
             maxZoom
         );
