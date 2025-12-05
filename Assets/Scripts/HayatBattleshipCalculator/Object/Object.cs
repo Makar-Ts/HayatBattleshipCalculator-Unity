@@ -38,11 +38,15 @@ namespace HayatBattleshipCalculator
 
 
         private BasicObjectInfo objectInfo = new();
+        public BasicObjectInfo ObjectInfo
+        {
+            get { return objectInfo; }
+        }
 
 
         private GameController controller;
 
-        void Start()
+        protected virtual void Start()
         {
             controller = GameObject.FindGameObjectWithTag(GameController.TAG).GetComponent<GameController>();
 
@@ -52,7 +56,7 @@ namespace HayatBattleshipCalculator
             ObjectCreated.Invoke(objectInfo.id);
         }
 
-        void OnDestroy()
+        protected virtual void OnDestroy()
         {
             _objects.Remove(objectInfo.id);
 

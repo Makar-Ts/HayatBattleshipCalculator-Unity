@@ -31,6 +31,10 @@ namespace HayatBattleshipCalculator
         {
             get { return timeScale; }
         }
+        public PhysicsScene? Simulation
+        {
+            get { return simulation; }
+        }
 
 
         void Start()
