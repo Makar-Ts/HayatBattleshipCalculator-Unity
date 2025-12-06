@@ -22,6 +22,7 @@ public class CameraController : MonoBehaviour {
     private float maxZoom = 40, minZoom = 2;
     private float targetZoom;
     private Camera camera;
+    private Vector3 smoothVelocity = Vector3.zero;
 
 
     private Boolean isLocked = false;
@@ -33,7 +34,7 @@ public class CameraController : MonoBehaviour {
     }
 
 
-    void Update() {
+    void LateUpdate() {
         if (Input.GetMouseButtonDown(2)) {
             isLocked = true;
             Cursor.lockState = CursorLockMode.Locked;
@@ -73,11 +74,6 @@ public class CameraController : MonoBehaviour {
         float oldSize = camera.orthographicSize;
         camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, targetZoom, scrollSmoothness);
 
-
-        Vector3 mouseWorldAfter = camera.ScreenToWorldPoint(Input.mousePosition);
-        transform.position += mouseWorldBefore - mouseWorldAfter;
-
-
         if (targetPosition != null)
         {
             if (movement.magnitude > 0)
@@ -86,15 +82,21 @@ public class CameraController : MonoBehaviour {
                 return;
             }
 
-            transform.position = Vector3.Lerp(
+            transform.position = Vector3.SmoothDamp(
                 transform.position,
                 new Vector3(
                     targetPosition?.x ?? 0,
                     targetPosition?.y ?? 0,
                     transform.position.z
                 ),
-                0.05f
+                ref smoothVelocity,
+                0.15f
             );
+        }
+        else
+        {
+            Vector3 mouseWorldAfter = camera.ScreenToWorldPoint(Input.mousePosition);
+            transform.position += mouseWorldBefore - mouseWorldAfter;
         }
     }
 

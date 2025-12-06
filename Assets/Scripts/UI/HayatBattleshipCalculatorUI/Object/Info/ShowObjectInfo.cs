@@ -10,7 +10,7 @@ namespace HayatBattleshipCalculatorUI
         private TMP_Text text;
 
 
-        void Update()
+        void LateUpdate()
         {
             if (CursorOnTargetDetector.CurrentTargetID == null)
                 text.text = "<align=\"center\">-- No Target --";

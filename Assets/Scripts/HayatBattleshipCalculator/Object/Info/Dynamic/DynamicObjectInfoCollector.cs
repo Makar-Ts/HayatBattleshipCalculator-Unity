@@ -19,6 +19,11 @@ namespace HayatBattleshipCalculator
         {
             var rb = ((DynamicObject)obj).Rigidbody;
 
+
+            var angle = Mathf.Round(Mathf.Atan2(rb.linearVelocity.y, rb.linearVelocity.x) * Mathf.Rad2Deg - 90);
+            if (angle < -180) angle += 360;
+
+
             return DictionaryHelper.Merge<string, string>(
                 base.GetInfo(), 
                 new Dictionary<string, string>()
@@ -26,7 +31,7 @@ namespace HayatBattleshipCalculator
                     ["speed"] 
                         = string.Format("{0}m/s", Mathf.Round(rb.linearVelocity.magnitude).ToString()),
                     ["speedDirection"] 
-                        = string.Format("{0}deg", Mathf.Round(Mathf.Atan2(rb.linearVelocity.y, rb.linearVelocity.x) / ((float)Math.PI) * 180).ToString()),
+                        = string.Format("{0}deg", angle.ToString()),
                 }
             );
         }

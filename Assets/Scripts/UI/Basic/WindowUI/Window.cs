@@ -70,7 +70,7 @@ namespace WindowsUI
             isDragging = false;
         }
 
-        void Update()
+        void LateUpdate()
         {
             if (isDragging)
             {

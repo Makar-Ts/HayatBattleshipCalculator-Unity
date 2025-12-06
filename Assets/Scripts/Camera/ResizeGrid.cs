@@ -46,7 +46,7 @@ public class ResizeGrid : MonoBehaviour
         UpdateGridLevel();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (pcam == null) return;
         

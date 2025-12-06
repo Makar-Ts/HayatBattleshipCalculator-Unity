@@ -82,6 +82,9 @@ namespace HayatBattleshipCalculatorUI
 
         public void SetLockedTarget(string id)
         {
+            if (lastTargetId != null)
+                TargetLost.Invoke(lastTargetId);
+
             lockTarget = true;
             lastTargetId = id;
             CurrentTargetID = id;

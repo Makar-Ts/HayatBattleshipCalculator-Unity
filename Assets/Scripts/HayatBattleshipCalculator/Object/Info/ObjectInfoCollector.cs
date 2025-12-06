@@ -19,12 +19,15 @@ namespace HayatBattleshipCalculator
         {
             var info = obj.ObjectInfo;
 
+            var heading = obj.transform.rotation.eulerAngles.z * -1;
+            if (heading <= -180) heading += 360;
+
             return new Dictionary<string, string>()
             {
                 ["id"] = info.id,
                 ["name"] = info.Name,
                 ["heading"] 
-                    = string.Format("{0}deg", Mathf.Round(obj.transform.rotation.z * -1).ToString()),
+                    = string.Format("{0}deg", Mathf.Round(heading).ToString()),
                 ["x"] = Mathf.Round(obj.transform.position.x).ToString(),
                 ["y"] = Mathf.Round(obj.transform.position.y).ToString(),
             };

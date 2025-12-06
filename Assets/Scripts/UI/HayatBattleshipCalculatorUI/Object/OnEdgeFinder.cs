@@ -14,7 +14,7 @@ namespace HayatBattleshipCalculatorUI
         private readonly Dictionary<string, RectTransform> _finders = new();
 
 
-        private void Start()
+        private void Awake()
         {
             HayatBattleshipCalculator.Object.ObjectCreated.AddListener(OnObjectCreated);
             HayatBattleshipCalculator.Object.ObjectDeleted.AddListener(OnObjectDeleted);
@@ -72,7 +72,7 @@ namespace HayatBattleshipCalculatorUI
         }
 
 
-        private void Update()
+        private void LateUpdate()
         {
             Camera cam = uiCamera != null ? uiCamera : Camera.main;
             if (cam == null)
